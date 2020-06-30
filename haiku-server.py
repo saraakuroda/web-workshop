@@ -60,7 +60,8 @@ def getList():
         cursor.execute(
             'SELECT * FROM haikus where id=' + str(i) + ';')
         result2 = cursor.fetchall()
-        dist["data"].append(result2)
+        dist["data"].append({cursor.description[i][0]: result2[0][i]
+                             for i in range(0, len(result2[0]))})
 
     return str(dist)
 
@@ -71,9 +72,12 @@ def getList():
 
 レスポンスの例
 
- {'data': [((15, 'n', 'aa', 'bb', 'cc'),), ((14, 'g', 'aa', 'bb', 'cc'),), ((13, 'g', 'aa', 'bb', 'cc'),), ((12, 'e',
-'aa', 'bb', 'cc'),), ((11, 'r', 'aa', 'bb', 'cc'),), ((10, 'D', 'aa', 'bb', 'cc'),), ((9, 'J', 'aa', 'bb', 'cc'),), ((8,
-'B', 'aa', 'bb', 'cc'),), ((7, 'G', 'aa', 'bb', 'cc'),), ((6, 'X', 'aa', 'bb', 'cc'),)]} 
+{'data': [{'id': 15, 'user': 'n', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}, {'id': 14, 'user': 'g', 'kami': 'aa',
+'naka': 'bb', 'shimo': 'cc'}, {'id': 13, 'user': 'g', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}, {'id': 12, 'user':
+'e', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}, {'id': 11, 'user': 'r', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'},
+{'id': 10, 'user': 'D', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}, {'id': 9, 'user': 'J', 'kami': 'aa', 'naka': 'bb',
+'shimo': 'cc'}, {'id': 8, 'user': 'B', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}, {'id': 7, 'user': 'G', 'kami': 'aa',
+'naka': 'bb', 'shimo': 'cc'}, {'id': 6, 'user': 'X', 'kami': 'aa', 'naka': 'bb', 'shimo': 'cc'}]}
 
 """
 
