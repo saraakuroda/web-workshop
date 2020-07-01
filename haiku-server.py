@@ -28,8 +28,8 @@ def getid():
     cursor.execute(
         'SELECT * FROM haikus where id=' + request.args.get('num') + ';')
     result = cursor.fetchall()
-    return str({cursor.description[i][0]: result[0][i]
-                for i in range(0, len(result[0]))})
+    return jsonify({cursor.description[i][0]: result[0][i]
+                    for i in range(0, len(result[0]))})
 
 # http://127.0.0.1:8888/getid?num=19
 
@@ -63,7 +63,7 @@ def getList():
         dist["data"].append({cursor.description[i][0]: result2[0][i]
                              for i in range(0, len(result2[0]))})
 
-    return str(dist)
+    return jsonify(dist)
 
 
 # http://127.0.0.1:8888/list?page=2
@@ -87,8 +87,9 @@ def getPageNum():
     cursor.execute('SELECT COUNT( id ) FROM haikus;')
     result1 = cursor.fetchall()
     fornum = int(result1[0][0])
-    numofpage = int(math.ceil(fornum/10))
-    return str({"numOfPages": numofpage})
+    numofpage = int(math.ceil(fornum / 10))
+    print(jsonify({"numOfPages": numofpage}))
+    return jsonify({"numOfPages": numofpage})
 # http://127.0.0.1:8888/pagenum
 
 
