@@ -52,7 +52,6 @@ request.open("GET", "http://127.0.0.1:8888/pagenum", true);
 request.responseType = "json";
 
 request.onload = function () {
-    console.log(this);
     var data = this.response;
     console.log(data);
 
@@ -92,7 +91,6 @@ request4.open("GET", "http://127.0.0.1:8888/list?page=" + pagenum, true);
 request4.responseType = "json";
 
 request4.onload = function () {
-    console.log(this);
     var pageData = this.response;
     console.log(pageData); //pageDataに
 
