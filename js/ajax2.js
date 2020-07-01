@@ -68,3 +68,37 @@ request.onload = function () {
 };
 
 request.send();
+
+var queryString = window.location.search;
+var queryObject = new Object();
+if (queryString) {
+    queryString = queryString.substring(1);
+    var parameters = queryString.split("&");
+
+    for (var i = 0; i < parameters.length; i++) {
+        var element = parameters[i].split("=");
+
+        var paramName = decodeURIComponent(element[0]);
+        var paramValue = decodeURIComponent(element[1]);
+
+        queryObject[paramName] = paramValue;
+        var pagenum = queryObject["page"];
+    }
+}
+
+var request4 = new XMLHttpRequest();
+
+request4.open("GET", "http://127.0.0.1:8888/list?page=" + pagenum, true);
+request4.responseType = "json";
+
+request4.onload = function () {
+    console.log(this);
+    var pageData = this.response;
+    console.log(pageData); //pageDataに
+
+    //{ "data": [{ "id": 27, "kami": "b", "naka": "c", "shimo": "d", "user": "a" }, { "id": 26, "kami": "\u3042\u3042\u3042\u3042\u4e0a", "naka": "\u3042\u3042\u3042\u3042\u3042\u3042\u4e2d", "shimo": "\u3042\u3042\u3042\u3042\u4e0b", "user": "tatsuru" }, { "id": 25, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "v" }, { "id": 24, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "k" }, { "id": 23, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "J" }, { "id": 22, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "w" }, { "id": 21, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "g" }, { "id": 20, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "S" }, { "id": 19, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "L" }, { "id": 18, "kami": "aa", "naka": "bb", "shimo": "cc", "user": "S" }] }
+
+    //上のようなデータが格納される
+};
+
+request4.send();
